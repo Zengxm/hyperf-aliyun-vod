@@ -6,7 +6,7 @@ namespace Ym\AliyunVod;
 use Ym\AliyunCore\DefaultAcsClient;
 use Ym\AliyunCore\Profile\DefaultProfile;
 use Hyperf\Contract\ConfigInterface;
-use Hyperf\Utils\ApplicationContext;
+use Hyperf\Context\ApplicationContext;
 
 class Client
 {
@@ -48,10 +48,10 @@ class Client
      * @param null $config
      * @param string $securityToken 如果是设置了sts模式，传入这个参数
      */
-    public function __construct($config=null,$securityToken='')
+    public function __construct($config=null, string $securityToken='')
     {
         $this->setConfig($config);
-        if ($this->type == 'sts') {
+        if ($this->type === 'sts') {
             $this->client = $this->initVodSTSClient($securityToken);
         } else {
             $this->client = $this->initVodClient();
